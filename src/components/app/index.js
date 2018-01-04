@@ -1,5 +1,6 @@
 import { h, Component } from 'preact';
 import { Router } from 'preact-router';
+import createHashHistory from 'history/createHashHistory';
 
 import Header from '../header';
 import Footer from '../footer';
@@ -21,7 +22,7 @@ export default class App extends Component {
 			<div id="app" className={style.main}>
 				<Header />
 				<div className={style.content}>
-					<Router onChange={this.handleRoute} className={style.content}>
+					<Router onChange={this.handleRoute} history={createHashHistory()}>
 						<Home path="/" />
 						<About path="/about" />
 					</Router>

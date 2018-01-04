@@ -15,9 +15,46 @@
     outline: none;
     min-height: 300px;
     max-height: 100vh;
-    font-size: 1.1em;
+    font-size: 1em;
 
     &::placeholder {
         color: $background-color;
     }
+}
+
+.results {
+    @include page-border;
+    border-collapse: collapse;
+    text-align: left;
+    margin-top: 2em;
+
+    tr {
+        &:not(:last-child) {
+            border-bottom: 1px solid $text-color;
+        }
+    }
+
+    th {
+        font-weight: bolder;
+    }
+
+    th, td {
+        padding: .5em 0;
+        &:first-child {
+            width: 75%;
+        }
+    }
+
+    a {
+        display: block;
+        color: $text-color;
+    }
+}
+
+.results.hidden {
+    display: none;
+}
+
+.tsv {
+    font-weight: 600;
 }

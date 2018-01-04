@@ -58,3 +58,40 @@
 .tsv {
     font-weight: 600;
 }
+
+.settings {
+    @include page-border;
+    margin-bottom: 1em;
+    vertical-align: middle;
+    line-height: 1.5em;
+}
+
+.settings h3 {
+    margin-bottom: 0;
+}
+
+.settings input {
+    appearance: none;
+    display: inline-block;
+    width: 1.5em;
+    height: 1.5em;
+    margin: 0 .5em -.25em 0;
+    outline: none;
+    &:checked {
+        background-color: $text-color;
+    }
+}
+
+.settings input[type="checkbox"] {
+    border: 2px solid $text-color;
+    border-radius: 2px;
+}
+
+.settings input[type="radio"] {
+    border: 2px solid $text-color;
+    border-radius: 50%;
+}
+
+.settings label:last-child {
+    margin-left: 1em;
+}

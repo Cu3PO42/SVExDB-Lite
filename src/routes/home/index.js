@@ -6,7 +6,10 @@ const tsvUrl = 'https://cu3po42.github.io/SVEx-Crawler/tsvs.json';
 export default class Home extends Component {
 	state = {
 		tsvs: undefined,
-		pkm: []
+		pkm: [],
+		filteredPkm: [],
+		showWoMatch: false,
+		gen7: true
 	};
 
 	componentDidMount() {
@@ -35,27 +38,59 @@ export default class Home extends Component {
 			.split(/\r?\n/)
 			.filter(e => /\b\d{4}\b/.test(e))
 			.map(e => e.split(/(\b\d{4}\b)/));
-		this.setState({ pkm: lines });
+		this.setState({ pkm: lines, filteredPkm: lines.filter(e => this.getMatchesForPkm(e).length) });
+	}
+
+	handleShowChange = (e) => {
+		this.setState({ showWoMatch: e.target.checked })
+	}
+
+	handleGen6Change = (e) => {
+		this.setState({ gen7: false });
+	}
+
+	handleGen7Change = (e) => {
+		this.setState({ gen7: true });
 	}
 
 	getMatchesForPkm(pkm) {
 		if (!this.state.tsvs) return [];
-		return this.state.tsvs.tsvs7[pkm[1]];
+		return (this.state.gen7 ? this.state.tsvs.tsvs7 : this.state.tsvs.tsvs6)[+pkm[1]];
+	}
+
+	getPkm() {
+		return this.state.showWoMatch ? this.state.pkm : this.state.filteredPkm;
 	}
 
 	render() {
 		return (
 			<div class={style.home}>
+				<div class={style.settings}>
+					<h3>Settings</h3>
+					<label>
+						<input type="checkbox" onChange={this.handleShowChange} />
+						Show Pokémon without matches
+					</label>
+					<br />
+					<label>
+						<input type="radio" name="gen" onChange={this.handleGen6Change} />
+						Generation 6
+					</label>
+					<label>
+						<input type="radio" name="gen" defaultChecked onChange={this.handleGen7Change} />
+						Generation 7
+					</label>
+				</div>
 				<div class={style.inputContainer}>
 					<textarea wrap="soft" placeholder="Paste some Pokémon data here..." onInput={this.handleTextChanged} />
 				</div>
-				<table class={`${style.results} ${this.state.pkm.length ? '' : style.hidden }`}>
+				<table class={`${style.results} ${this.getPkm().length ? '' : style.hidden }`}>
 					<tr>
 						<th>Pokémon</th>
 						<th>Matches</th>
 					</tr>
-					{this.state.pkm.map(pkm => 
-						<tr>
+					{this.getPkm().map(pkm => 
+						<tr class>
 							<td>{pkm[0]}<span class={style.tsv}>{pkm[1]}</span>{pkm[2]}</td>
 							<td>
 								{this.getMatchesForPkm(pkm).map(e => <a href={`https://www.reddit.com/r/SVExchange/comments/${e.link}/${pkm[1]}/`} target="_blank">/u/{e.user}</a>)}

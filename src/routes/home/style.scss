@@ -1,0 +1,23 @@
+@import "../../style/theme";
+
+.inputContainer {
+    background-color: $text-color;
+}
+
+.inputContainer textarea {
+    @include page-border;
+    display: block;
+    border: none;
+    background-color: $text-color;
+    color: $background-color;
+    font-family: $font;
+    resize: none;
+    outline: none;
+    min-height: 300px;
+    max-height: 100vh;
+    font-size: 1.1em;
+
+    &::placeholder {
+        color: $background-color;
+    }
+}

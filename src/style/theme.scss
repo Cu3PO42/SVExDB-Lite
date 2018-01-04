@@ -1,6 +1,8 @@
 $background-color: #FAFAFA;
 $text-color: black;
 
+$font: 'Source Code Pro', Courier New, Courier, monospace;
+
 $page-break: 800px;
 @mixin page-border {
     width: 80%;

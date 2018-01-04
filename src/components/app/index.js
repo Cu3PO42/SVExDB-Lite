@@ -6,8 +6,6 @@ import Footer from '../footer';
 import Home from '../../routes/home';
 import About from '../../routes/about';
 import style from './style';
-// import Home from 'async!../routes/home';
-// import Profile from 'async!../routes/profile';
 
 export default class App extends Component {
 	/** Gets fired when the route changes.
@@ -24,10 +22,8 @@ export default class App extends Component {
 				<Header />
 				<div className={style.content}>
 					<Router onChange={this.handleRoute} className={style.content}>
+						<Home path="/" />
 						<About path="/about" />
-						{/*<Home path="/" />
-						<Profile path="/profile/" user="me" />
-			<Profile path="/profile/:user" />*/}
 					</Router>
 				</div>
 				<Footer />

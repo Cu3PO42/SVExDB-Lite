@@ -22,8 +22,8 @@ export default class App extends Component {
 				<Header />
 				<div className={style.content}>
 					<Router onChange={this.handleRoute}>
-						<Home path="/" />
-						<About path="/about" />
+						<Home path={PUBLIC_PATH} />
+						<About path={PUBLIC_PATH + 'about'} />
 					</Router>
 				</div>
 				<Footer />

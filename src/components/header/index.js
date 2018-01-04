@@ -7,8 +7,8 @@ export default class Header extends Component {
 		return (
 			<header class={style.header}>
 				<nav>
-					<Link href="/">Database</Link>
-					<Link href="/about">About</Link>
+					<Link href={PUBLIC_PATH}>Database</Link>
+					<Link href={PUBLIC_PATH + 'about'}>About</Link>
 				</nav>
 				<h1>SVEx DB Lite</h1>
 			</header>

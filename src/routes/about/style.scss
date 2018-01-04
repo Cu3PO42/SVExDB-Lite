@@ -1,0 +1,9 @@
+@import "../../style/theme";
+
+.about {
+    @include page-border;
+
+    a {
+        color: $text-color;
+    }
+}

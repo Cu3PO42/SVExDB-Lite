@@ -29,8 +29,11 @@
     "preact-cli": "^2.0.1"
   },
   "dependencies": {
+    "node-sass": "^4.7.2",
     "preact": "^8.2.6",
     "preact-compat": "^3.17.0",
-    "preact-router": "^2.5.7"
+    "preact-router": "^2.5.7",
+    "sass-loader": "^6.0.6",
+    "typeface-source-code-pro": "^0.0.44"
   }
 }

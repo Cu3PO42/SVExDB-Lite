@@ -1,0 +1,12 @@
+$background-color: #FAFAFA;
+$text-color: black;
+
+$page-break: 800px;
+@mixin page-border {
+    width: 80%;
+    margin: 0 auto;
+    @media screen and (max-width: $page-break) {
+        width: 100%;
+        margin: 0 2em;
+    }
+}

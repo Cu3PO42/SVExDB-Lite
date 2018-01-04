@@ -63,23 +63,33 @@ export default class Home extends Component {
 	}
 
 	render() {
+		const tsv6Count = this.state.tsvs ? this.state.tsvs.tsvs6.filter(e => e.length).length : 0;
+		const tsv7Count = this.state.tsvs ? this.state.tsvs.tsvs7.filter(e => e.length).length : 0;
 		return (
 			<div class={style.home}>
-				<div class={style.settings}>
-					<h3>Settings</h3>
-					<label>
-						<input type="checkbox" onChange={this.handleShowChange} />
-						Show Pokémon without matches
-					</label>
-					<br />
-					<label>
-						<input type="radio" name="gen" onChange={this.handleGen6Change} />
-						Generation 6
-					</label>
-					<label>
-						<input type="radio" name="gen" defaultChecked onChange={this.handleGen7Change} />
-						Generation 7
-					</label>
+				<div class={style.topWrapper}>
+					<div class={style.settings}>
+						<h3>Settings</h3>
+						<label>
+							<input type="checkbox" onChange={this.handleShowChange} />
+							Show Pokémon without matches
+						</label>
+						<br />
+						<label>
+							<input type="radio" name="gen" onChange={this.handleGen6Change} />
+							Generation 6
+						</label>
+						<label>
+							<input type="radio" name="gen" defaultChecked onChange={this.handleGen7Change} />
+							Generation 7
+						</label>
+					</div>
+					<div class={style.statistics}>
+						<h3>Statistics</h3>
+						TSV6: <span class={style.invisible}>{'0000'.slice((""+tsv6Count).length)}</span>{tsv6Count} / 4096
+						<br />
+						TSV7: <span class={style.invisible}>{'0000'.slice((""+tsv7Count).length)}</span>{tsv7Count} / 4096
+					</div>
 				</div>
 				<div class={style.inputContainer}>
 					<textarea wrap="soft" placeholder="Paste some Pokémon data here..." onInput={this.handleTextChanged} />

@@ -59,15 +59,18 @@
     font-weight: 600;
 }
 
-.settings {
+.topWrapper {
     @include page-border;
-    margin-bottom: 1em;
-    vertical-align: middle;
-    line-height: 1.5em;
-}
-
-.settings h3 {
-    margin-bottom: 0;
+    display: flex;
+    & > * {
+        width: 50%;
+        line-height: 1.5em;
+        margin-bottom: 1em;
+        vertical-align: middle;
+        h3 {
+            margin-bottom: 0;
+        }
+    }
 }
 
 .settings input {
@@ -94,4 +97,12 @@
 
 .settings label:last-child {
     margin-left: 1em;
+}
+
+.statistics {
+    text-align: right;
+}
+
+.invisible {
+    color: $background-color;
 }

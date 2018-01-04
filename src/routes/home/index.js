@@ -33,12 +33,16 @@ export default class Home extends Component {
 		}
 	}
 
-	handleTextChanged = (e) => {
-		const lines = e.target.value
+	updatePkm(text) {
+		const lines = text
 			.split(/\r?\n/)
 			.filter(e => /\b\d{4}\b/.test(e))
 			.map(e => e.split(/(\b\d{4}\b)/));
 		this.setState({ pkm: lines, filteredPkm: lines.filter(e => this.getMatchesForPkm(e).length) });
+	}
+
+	handleTextChanged = (e) => {
+		this.updatePkm(e.target.value);
 	}
 
 	handleShowChange = (e) => {
@@ -51,6 +55,23 @@ export default class Home extends Component {
 
 	handleGen7Change = (e) => {
 		this.setState({ gen7: true });
+	}
+
+	handleDrop = (e) => {
+		e.stopPropagation();
+		e.preventDefault();
+		console.log(e);
+		if (e.dataTransfer.files[0]) {
+			const file = e.dataTransfer.files[0];
+			const fileReader = new FileReader();
+			fileReader.onload = (ev) => { 
+				const text = ev.target.result;
+				e.target.value = text;
+				this.updatePkm(text);
+			};
+			fileReader.readAsText(file);
+		}
+		console.log(e);
 	}
 
 	getMatchesForPkm(pkm) {
@@ -92,7 +113,7 @@ export default class Home extends Component {
 					</div>
 				</div>
 				<div class={style.inputContainer}>
-					<textarea wrap="soft" placeholder="Paste some Pokémon data here..." onInput={this.handleTextChanged} />
+					<textarea wrap="soft" placeholder="Paste some Pokémon data here or drag & drop a dump..." onInput={this.handleTextChanged} onDrop={this.handleDrop} />
 				</div>
 				<table class={`${style.results} ${this.getPkm().length ? '' : style.hidden }`}>
 					<tr>

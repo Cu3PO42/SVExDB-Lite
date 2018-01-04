@@ -79,21 +79,32 @@
     display: inline-block;
     width: 1.5em;
     height: 1.5em;
+    box-sizing: border-box;
     margin: 0 .5em -.25em 0;
     outline: none;
-    &:checked {
-        background-color: $text-color;
-    }
 }
 
 .settings input[type="checkbox"] {
     border: 2px solid $text-color;
     border-radius: 2px;
+    &:checked {
+        background-color: $text-color;
+    }
+    &:checked::after {
+        position: absolute;
+        content: '✓';
+        color: $background-color;
+        font-size: 1.5em;
+        margin-top: -.25em;
+    }
 }
 
 .settings input[type="radio"] {
     border: 2px solid $text-color;
     border-radius: 50%;
+    &:checked {
+        background-color: $text-color;
+    }
 }
 
 .settings label:last-child {

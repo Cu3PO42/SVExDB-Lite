@@ -1,19 +1,22 @@
-# {{ name }}
+# SVEx DB Lite
 
-## CLI Commands
+This tool can be used to used to find open TSV threads on [r/SVExchange](https://reddit.com/r/SVExchange) matching a given input.
+The data is obtained from [Cu3PO42/SVEx-Crawler](https://github.com/Cu3PO42/SVEx-Crawler).
+
+If you just want to use this tool, you can find it hosted on GitHub Pages [here](https://cu3po42.github.io/SVExDB-Lite).
+If you want to work on it, install dependencies and start a developmend server:
 
 ``` bash
 # install dependencies
-npm install
+yarn install
 
 # serve with hot reload at localhost:8080
-npm run dev
+yarn start
 
 # build for production with minification
-npm run build
-
-# test the production build locally
-npm run serve
+yarn run build
 ```
 
-For detailed explanation on how things work, checkout the [CLI Readme](https://github.com/developit/preact-cli/blob/master/README.md).
+### License
+
+This project is available under the terms of the MIT license, (C) 2018 Tobias 'Cu3PO42' Zimmermann.

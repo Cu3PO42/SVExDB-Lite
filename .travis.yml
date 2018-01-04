@@ -1,0 +1,21 @@
+language: node_js
+node_js: "8"
+script:
+    - yarn run build
+sudo: false
+
+deploy:
+    provider: pages
+    github_token: $GITHUB_TOKEN
+    skip_cleanup: true
+    on:
+        branch: master
+    local_dir: build
+
+cache:
+    yarn: true
+    directories:
+        - node_modules
+
+notifications:
+    email: false

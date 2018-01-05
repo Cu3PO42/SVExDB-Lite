@@ -84,8 +84,8 @@ export default class Home extends Component {
 	}
 
 	render() {
-		const tsv6Count = this.state.tsvs ? this.state.tsvs.tsvs6.filter(e => e.length).length : 0;
-		const tsv7Count = this.state.tsvs ? this.state.tsvs.tsvs7.filter(e => e.length).length : 0;
+		const tsv6Count = this.state.tsvs ? this.state.tsvs.tsvs6.filter(e => e.length && e.some(f => !f.archived)).length : 0;
+		const tsv7Count = this.state.tsvs ? this.state.tsvs.tsvs7.filter(e => e.length && e.some(f => !f.archived)).length : 0;
 		return (
 			<div class={style.home}>
 				<div class={style.topWrapper}>
@@ -124,7 +124,12 @@ export default class Home extends Component {
 						<tr class>
 							<td>{pkm[0]}<span class={style.tsv}>{pkm[1]}</span>{pkm[2]}</td>
 							<td>
-								{this.getMatchesForPkm(pkm).map(e => <a href={`https://www.reddit.com/r/SVExchange/comments/${e.link}/${pkm[1]}/`} target="_blank">/u/{e.user}</a>)}
+								{this.getMatchesForPkm(pkm).map(e =>
+									<div>
+										<a href={`https://www.reddit.com/r/SVExchange/comments/${e.link}/${pkm[1]}/`} target="_blank">/u/{e.user}</a>
+										{e.archived ? ' (recently archived)' : null}
+									</div>
+								)}
 							</td>
 						</tr>
 					)}

@@ -42,12 +42,11 @@
         padding: .5em 0;
         vertical-align: top;
         &:first-child {
-            width: 75%;
+            width: 66%;
         }
     }
 
     a {
-        display: block;
         color: $text-color;
     }
 }

@@ -4,7 +4,7 @@ This tool can be used to used to find open TSV threads on [r/SVExchange](https:/
 The data is obtained from [Cu3PO42/SVEx-Crawler](https://github.com/Cu3PO42/SVEx-Crawler).
 
 If you just want to use this tool, you can find it hosted on GitHub Pages [here](https://cu3po42.github.io/SVExDB-Lite).
-If you want to work on it, install dependencies and start a developmend server:
+If you want to work on it, install dependencies and start a development server:
 
 ``` bash
 # install dependencies

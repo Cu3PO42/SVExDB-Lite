@@ -7,8 +7,9 @@ $page-break: 800px;
 @mixin page-border {
     width: 80%;
     margin: 0 auto;
+    box-sizing: border-box;
     @media screen and (max-width: $page-break) {
-        width: 100%;
+        width: calc(100% - 4em);
         margin: 0 2em;
     }
 }

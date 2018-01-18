@@ -116,7 +116,7 @@ export default class Home extends Component {
 				<div class={style.inputContainer}>
 					<textarea wrap="soft" placeholder="Paste some Pokémon data here or drag & drop a dump..." onInput={this.handleTextChanged} onDrop={this.handleDrop} />
 				</div>
-				<table class={`${style.results} ${this.getPkm().length ? '' : style.hidden }`}>
+				<table class={`${style.results} ${this.state.pkm.length ? '' : style.hidden }`}>
 					<tr>
 						<th>Pokémon</th>
 						<th>Matches</th>

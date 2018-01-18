@@ -29,7 +29,7 @@
     margin-top: 2em;
 
     tr {
-        &:not(:last-child) {
+        &:first-child, &:not(:last-child) {
             border-bottom: 1px solid $text-color;
         }
     }

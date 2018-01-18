@@ -17,15 +17,15 @@ export default class Home extends Component {
 			const data = localStorage.getItem('tsvdata');
 			if (data) {
 				const tsvs = JSON.parse(data);
+				this.setState({ tsvs });
 				if (tsvs && tsvs.last_updated_at && new Date().getTime() / 1000 - tsvs.last_updated_at < 60 * 60 * 3) {
-					this.setState({ tsvs });
 					return;
 				}
 			}
 			fetch(tsvUrl).then(res => res.json()).then((tsvs) => {
 				this.setState({ tsvs });
 				localStorage.setItem('tsvdata', JSON.stringify(tsvs));
-			});
+			}).catch(() => null);
 		} else {
 			fetch(tsvUrl).then(res => res.json()).then((tsvs) => {
 				this.setState({ tsvs });

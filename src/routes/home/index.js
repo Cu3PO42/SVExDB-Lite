@@ -56,6 +56,7 @@ export default class Home extends Component {
 
 	handleGen7Change = (e) => {
 		this.setState({ gen7: true });
+		this.setState({ filteredPkm: this.state.pkm.filter(e => this.getMatchesForPkm(e).length )})
 	}
 
 	handleDrop = (e) => {

@@ -106,8 +106,16 @@
     }
 }
 
-.settings label:last-child {
+.settings label:last-of-type {
     margin-left: 1em;
+}
+
+.settings input[type="text"] {
+    outline: none;
+    border: none;
+    width: 100%;
+    font-family: $font;
+    font-size: 1rem;
 }
 
 .statistics {

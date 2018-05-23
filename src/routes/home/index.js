@@ -9,7 +9,8 @@ export default class Home extends Component {
 		pkm: [],
 		filteredPkm: [],
 		showWoMatch: false,
-		gen7: true
+		gen7: true,
+		filterUser: ""
 	};
 
 	componentDidMount() {
@@ -38,7 +39,14 @@ export default class Home extends Component {
 			.split(/\r?\n/)
 			.filter(e => /\b\d{4}\b/.test(e))
 			.map(e => e.split(/(\b\d{4}\b)/));
-		this.setState({ pkm: lines, filteredPkm: lines.filter(e => this.getMatchesForPkm(e).length) });
+		this.setState({
+			pkm: lines,
+			filteredPkm: this.calculateFilteredPkm(lines, this.state.gen7, this.state.filterUser)
+		 });
+	}
+
+	calculateFilteredPkm(pkm, gen7, filterUser) {
+		return pkm.filter(e => this.getMatchesForPkm(e, gen7, filterUser).length);
 	}
 
 	handleTextChanged = (e) => {
@@ -51,12 +59,20 @@ export default class Home extends Component {
 
 	handleGen6Change = (e) => {
 		this.setState({ gen7: false });
-		this.setState({ filteredPkm: this.state.pkm.filter(e => this.getMatchesForPkm(e).length )})
+		this.setState({ filteredPkm: this.calculateFilteredPkm(this.state.pkm, false, this.state.filterUser) })
 	}
 
 	handleGen7Change = (e) => {
 		this.setState({ gen7: true });
-		this.setState({ filteredPkm: this.state.pkm.filter(e => this.getMatchesForPkm(e).length )})
+		this.setState({ filteredPkm: this.calculateFilteredPkm(this.state.pkm, true, this.state.filterUser) })
+	}
+
+	handleUsernameChange = (e) => {
+		const name = e.target.value.match(/^(?:\/?u\/)?(.*)/)[1];
+		this.setState({ 
+			filterUser: name,
+			filteredPkm: this.calculateFilteredPkm(this.state.pkm, this.state.gen7, name)
+		});
 	}
 
 	handleDrop = (e) => {
@@ -76,9 +92,13 @@ export default class Home extends Component {
 		console.log(e);
 	}
 
-	getMatchesForPkm(pkm) {
+	getMatchesForPkm(pkm, gen7, filterUser) {
 		if (!this.state.tsvs) return [];
-		return (this.state.gen7 ? this.state.tsvs.tsvs7 : this.state.tsvs.tsvs6)[+pkm[1]];
+		const matches = (gen7 ? this.state.tsvs.tsvs7 : this.state.tsvs.tsvs6)[+pkm[1]];
+		if (filterUser) {
+			return matches.filter(e => e.user === filterUser);
+		}
+		return matches;
 	}
 
 	getPkm() {
@@ -106,6 +126,8 @@ export default class Home extends Component {
 							<input type="radio" name="gen" defaultChecked onChange={this.handleGen7Change} />
 							Generation 7
 						</label>
+						<br />
+						<input type="text" name="username" placeholder="Limit results to this username" onInput={this.handleUsernameChange} />
 					</div>
 					<div class={style.statistics}>
 						<h3>Statistics</h3>
@@ -126,7 +148,7 @@ export default class Home extends Component {
 						<tr class>
 							<td>{pkm[0]}<span class={style.tsv}>{pkm[1]}</span>{pkm[2]}</td>
 							<td>
-								{this.getMatchesForPkm(pkm).map(e =>
+								{this.getMatchesForPkm(pkm, this.state.gen7, this.state.filterUser).map(e =>
 									<div>
 										<a href={`https://www.reddit.com/r/SVExchange/comments/${e.link}/${pkm[1]}/`} target="_blank">/u/{e.user}</a>
 										{e.archived ? ' (recently archived)' : null}

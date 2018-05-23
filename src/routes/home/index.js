@@ -46,7 +46,10 @@ export default class Home extends Component {
 	}
 
 	calculateFilteredPkm(pkm, gen7, filterUser) {
-		return pkm.filter(e => this.getMatchesForPkm(e, gen7, filterUser).length);
+		return pkm.filter(e => {
+			const matches = this.getMatchesForPkm(e, gen7);
+			return (filterUser ? matches.filter(e => e.user === filterUser) : matches).length;
+		});
 	}
 
 	handleTextChanged = (e) => {
@@ -68,11 +71,18 @@ export default class Home extends Component {
 	}
 
 	handleUsernameChange = (e) => {
-		const name = e.target.value.match(/^(?:\/?u\/)?(.*)/)[1];
-		this.setState({ 
-			filterUser: name,
-			filteredPkm: this.calculateFilteredPkm(this.state.pkm, this.state.gen7, name)
-		});
+		const name = e.target.value.match(/^(?:\/?u\/)?(.*)$/)[1];
+		if (name === '' && e.target.value.match(/^\/?u\/$/)) {
+			this.setState({
+				filteredUser: '',
+				filteredPkm: []
+			});
+		} else {
+			this.setState({ 
+				filterUser: name,
+				filteredPkm: this.calculateFilteredPkm(this.state.pkm, this.state.gen7, name)
+			});
+		}
 	}
 
 	handleDrop = (e) => {
@@ -92,13 +102,9 @@ export default class Home extends Component {
 		console.log(e);
 	}
 
-	getMatchesForPkm(pkm, gen7, filterUser) {
+	getMatchesForPkm(pkm, gen7) {
 		if (!this.state.tsvs) return [];
-		const matches = (gen7 ? this.state.tsvs.tsvs7 : this.state.tsvs.tsvs6)[+pkm[1]];
-		if (filterUser) {
-			return matches.filter(e => e.user === filterUser);
-		}
-		return matches;
+		return (gen7 ? this.state.tsvs.tsvs7 : this.state.tsvs.tsvs6)[+pkm[1]];
 	}
 
 	getPkm() {
@@ -148,7 +154,7 @@ export default class Home extends Component {
 						<tr class>
 							<td>{pkm[0]}<span class={style.tsv}>{pkm[1]}</span>{pkm[2]}</td>
 							<td>
-								{this.getMatchesForPkm(pkm, this.state.gen7, this.state.filterUser).map(e =>
+								{this.getMatchesForPkm(pkm, this.state.gen7).map(e =>
 									<div>
 										<a href={`https://www.reddit.com/r/SVExchange/comments/${e.link}/${pkm[1]}/`} target="_blank">/u/{e.user}</a>
 										{e.archived ? ' (recently archived)' : null}

@@ -1,0 +1,11 @@
+{
+  "name": "svexdb-lite",
+  "short_name": "svexdb-lite",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fff",
+  "theme_color": "#000",
+  "icons": [
+  ]
+}

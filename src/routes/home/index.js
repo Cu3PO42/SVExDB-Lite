@@ -1,7 +1,7 @@
 import { h, Component } from 'preact';
 import style from './style';
 
-const tsvUrl = 'https://cu3po42.github.io/SVEx-Crawler/tsvs.json';
+const tsvUrl = 'https://raw.githubusercontent.com/Cu3PO42/SVEx-Crawler/gh-pages/tsvs.json';
 
 export default class Home extends Component {
 	state = {

@@ -29,7 +29,7 @@
     "preact-cli": "^2.0.1"
   },
   "dependencies": {
-    "node-sass": "^4.7.2",
+    "node-sass": "^4.13.1",
     "preact": "^8.2.6",
     "preact-compat": "^3.17.0",
     "preact-router": "^2.5.7",
